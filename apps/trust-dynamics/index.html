@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trust Dynamics — Satoshium</title>
+  <meta name="description" content="Multi-agent trust interaction modeling. Observe how trust forms, decays, stabilizes, fractures, repairs, and cascades across a group of agents.">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="Trust Dynamics — Satoshium">
+  <meta property="og:description" content="Multi-agent trust interaction modeling simulation.">
+  <meta property="og:image" content="./opengraph.jpg">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts — monospace + sans pair -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ── Header ──────────────────────────────────────────────────────────── -->
+  <header id="header">
+    <div id="header-title">
+      <div id="header-brand">Satoshium · Simulation Layer</div>
+      <div id="header-app-name">Trust Dynamics</div>
+    </div>
+    <span id="round-counter">Round 0</span>
+  </header>
+
+  <!-- ── Diagnostics Bar ─────────────────────────────────────────────────── -->
+  <div id="diagnostics-bar">
+    <div class="diag-group">
+      <span class="diag-key">Regime</span>
+      <span class="diag-label diag-neutral" id="diag-regime">—</span>
+    </div>
+    <div class="diag-sep"></div>
+    <div class="diag-group">
+      <span class="diag-key">Form</span>
+      <span class="diag-label diag-neutral" id="diag-form">—</span>
+    </div>
+    <div class="diag-sep"></div>
+    <div class="diag-group">
+      <span class="diag-key">Driver</span>
+      <span class="diag-label diag-neutral" id="diag-driver">—</span>
+    </div>
+    <div class="diag-sep"></div>
+    <div class="diag-group">
+      <span class="diag-key">Health</span>
+      <span class="diag-label diag-neutral" id="diag-health">—</span>
+    </div>
+    <div class="diag-sep"></div>
+    <div class="diag-group">
+      <span class="diag-key">Pattern</span>
+      <span class="diag-label diag-neutral" id="diag-temporal">—</span>
+    </div>
+  </div>
+
+  <!-- ── Metrics Row ─────────────────────────────────────────────────────── -->
+  <div id="metrics-row">
+    <div class="metric-card">
+      <div class="metric-label">Network Trust</div>
+      <div class="metric-value" id="metric-network-trust">—</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Trust Asymmetry</div>
+      <div class="metric-value" id="metric-asymmetry">—</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Stability</div>
+      <div class="metric-value" id="metric-stability">—</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Anchor Strength</div>
+      <div class="metric-value" id="metric-anchor">—</div>
+      <div class="metric-anchor-name" id="metric-anchor-name"></div>
+      <div class="metric-anchor-fragility" id="metric-anchor-fragility"></div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Cascade Risk</div>
+      <div class="metric-value" id="metric-cascade">—</div>
+    </div>
+  </div>
+
+  <!-- ── Main Three-Panel Area ───────────────────────────────────────────── -->
+  <div id="main-area">
+
+    <!-- LEFT — Controls -->
+    <div class="panel" id="left-panel">
+      <div class="panel-title">Controls</div>
+      <div class="panel-body">
+
+        <div class="control-section">
+          <div class="control-section-title">Scenario</div>
+          <select id="scenario-select"></select>
+          <div class="scenario-tagline" id="scenario-tagline"></div>
+        </div>
+
+        <div class="control-section">
+          <div class="control-section-title">Agents</div>
+          <select id="agent-count-select"></select>
+        </div>
+
+        <div class="control-section">
+          <div class="control-section-title">Simulation</div>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="btn-step">Step</button>
+            <button class="btn" id="btn-run-pause">Run</button>
+          </div>
+          <button class="btn btn-full" id="btn-reset">Reset</button>
+        </div>
+
+        <div class="control-section">
+          <div class="control-section-title">Global Conditions</div>
+          <div id="conditions-sliders"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CENTER — Trust Map -->
+    <div class="panel" id="center-panel">
+      <div class="panel-title">Trust Map</div>
+      <div class="panel-body">
+        <div class="center-section-title">Directional Trust Matrix</div>
+        <div id="trust-matrix">
+          <div style="color: var(--text-dim); font-family: var(--font-main); font-size: 11px; padding: 20px 0;">
+            Loading simulation...
+          </div>
+        </div>
+        <div class="center-section-title">Agent Overview</div>
+        <div id="agent-summary"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT — Explanation Console -->
+    <div class="panel" id="right-panel">
+      <div class="panel-title">Explanation Console</div>
+      <div class="panel-body" id="explanation-console">
+        <div class="log-line log-header">— Initializing —</div>
+        <div class="log-line">Trust Dynamics simulation ready.</div>
+        <div class="log-line">Select a scenario and press Step or Run to begin.</div>
+      </div>
+    </div>
+
+  </div><!-- /#main-area -->
+</div><!-- /#app -->
+
+<!-- Logic modules — order matters: dependencies first -->
+<script src="./logic/agents.js"></script>
+<script src="./logic/trust.js"></script>
+<script src="./logic/scenarios.js"></script>
+<script src="./logic/explanation.js"></script>
+<script src="./logic/diagnostics.js"></script>
+<script src="./logic/simulation.js"></script>
+<script src="./logic/main.js"></script>
+
+<!-- Update scenario tagline when selection changes -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const select = document.getElementById('scenario-select');
+    const tagline = document.getElementById('scenario-tagline');
+
+    function updateTagline() {
+      const scenario = SCENARIOS.find(s => s.id === select.value);
+      if (tagline && scenario) tagline.textContent = scenario.tagline || '';
+    }
+
+    select?.addEventListener('change', updateTagline);
+    // Set initial tagline after selectors are populated
+    setTimeout(updateTagline, 50);
+  });
+</script>
+</body>
+</html>
