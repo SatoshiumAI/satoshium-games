@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="alternate icon" href="/assets/favicon.ico">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta name="theme-color" content="#00eaff">
+
+<title>Satoshium WarGames Suite</title>
+<meta name="description" content="The Satoshium WarGames Suite is a structured simulation environment exploring solved systems, escalation, instability, coalition dynamics, and strategic coordination through browser-based interactive modules.">
+
+<style>
+:root{
+  --card-wm: url('https://satoshium.link/assets/seal.png');
+  --bg:#04070d;
+  --bg2:#07111b;
+  --panel:#08111c;
+  --panel2:#0b1624;
+  --text:#dce8f6;
+  --muted:#90a4bb;
+  --cyan:#00eaff;
+  --cyan2:#00cfe6;
+  --cyanLine:rgba(0,234,255,.18);
+  --cyanGlow:rgba(0,234,255,.14);
+  --gold:#d6a34a;
+  --gold2:#f4c36a;
+  --goldLine:rgba(214,163,74,.20);
+  --pink:#ff4fd8;
+  --pinkLine:rgba(255,79,216,.16);
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  padding:0;
+  background:
+    radial-gradient(circle at top center, rgba(0,234,255,.06), transparent 30%),
+    linear-gradient(to bottom, #050912 0%, #04070d 35%, #050912 100%);
+  color:var(--text);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+}
+
+body{
+  padding-top:80px;
+  position:relative;
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0,234,255,.028) 0px,
+      rgba(0,234,255,.028) 1px,
+      transparent 1px,
+      transparent 5px
+    );
+  opacity:.18;
+  pointer-events:none;
+  z-index:0;
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(to right, rgba(0,234,255,.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,234,255,.02) 1px, transparent 1px);
+  background-size:80px 80px;
+  opacity:.14;
+  pointer-events:none;
+  z-index:0;
+}
+
+.wrap{
+  max-width:1180px;
+  margin:0 auto;
+  padding:0 18px;
+  position:relative;
+  z-index:1;
+}
+
+.wrap.content{
+  opacity:0;
+  transform:translateY(6px);
+  animation:pageEnter .28s cubic-bezier(.22,.61,.36,1) forwards;
+}
+
+@keyframes pageEnter{
+  to{opacity:1;transform:translateY(0)}
+}
+
+.content{padding:40px 0 60px}
+
+.hero-shell{
+  border:1px solid var(--cyanLine);
+  border-radius:20px;
+  padding:24px;
+  background:
+    linear-gradient(to bottom right, rgba(8,17,28,.95), rgba(5,11,18,.92));
+  box-shadow:
+    0 0 0 1px rgba(0,234,255,.05),
+    0 0 30px rgba(0,234,255,.05),
+    0 25px 60px rgba(0,0,0,.45);
+  position:relative;
+  overflow:hidden;
+}
+
+.hero-shell::before{
+  content:"";
+  position:absolute;
+  inset:-80px;
+  background-image:var(--card-wm);
+  background-repeat:no-repeat;
+  background-size:min(820px,72vw);
+  background-position:right -180px center;
+  opacity:.03;
+  filter:blur(1px);
+  pointer-events:none;
+}
+
+.suite-strip{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 14px;
+  align-items:center;
+  margin-bottom:20px;
+  padding-bottom:14px;
+  border-bottom:1px solid rgba(0,234,255,.12);
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+
+.suite-label{
+  color:var(--gold2);
+  font-weight:700;
+}
+
+.suite-item{
+  color:var(--muted);
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+
+.suite-item.active{
+  color:var(--cyan);
+  font-weight:700;
+}
+
+.suite-item .status{
+  color:var(--gold2);
+  opacity:.75;
+  font-size:10px;
+}
+
+.kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 10px;
+  border:1px solid var(--goldLine);
+  border-radius:999px;
+  background:rgba(214,163,74,.07);
+  color:var(--gold2);
+  font-size:12px;
+  font-weight:700;
+  text-decoration:none;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:24px;
+  align-items:start;
+  margin-top:18px;
+}
+
+.hero-copy h1{
+  margin:0 0 8px;
+  font-size:48px;
+  line-height:1.02;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color:var(--cyan);
+  text-shadow:0 0 12px rgba(0,234,255,.24);
+}
+
+.hero-subtitle{
+  margin:0 0 18px;
+  color:rgba(0,234,255,.72);
+  font-size:12px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+
+.hero-copy p{
+  margin:0 0 14px;
+  color:var(--muted);
+  line-height:1.7;
+  max-width:760px;
+}
+
+.hero-quote{
+  margin-top:18px;
+  padding:14px 16px;
+  border-left:2px solid rgba(214,163,74,.42);
+  background:rgba(214,163,74,.05);
+  color:var(--gold2);
+  font-style:italic;
+  border-radius:10px;
+}
+
+.hero-side{
+  border:1px solid rgba(0,234,255,.12);
+  border-radius:16px;
+  padding:18px;
+  background:linear-gradient(to bottom right, rgba(8,17,28,.88), rgba(5,11,18,.82));
+  box-shadow:inset 0 0 0 1px rgba(0,234,255,.03);
+}
+
+.hero-side h2{
+  margin:0 0 10px;
+  font-size:14px;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  color:var(--gold2);
+}
+
+.hero-side p{
+  margin:0 0 12px;
+  color:var(--muted);
+  line-height:1.7;
+  font-size:14px;
+}
+
+.signal-line{
+  margin-top:14px;
+  padding-top:14px;
+  border-top:1px solid rgba(0,234,255,.10);
+  color:rgba(0,234,255,.78);
+  font-size:12px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.section-card{
+  margin-top:30px;
+  background:linear-gradient(to bottom right, rgba(8,17,28,.96), rgba(6,12,20,.92));
+  border:1px solid rgba(0,234,255,.13);
+  border-radius:18px;
+  padding:22px;
+  box-shadow:
+    0 0 0 1px rgba(0,234,255,.04),
+    0 18px 45px rgba(0,0,0,.42);
+}
+
+.section-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:18px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.section-header h2{
+  margin:0;
+  font-size:26px;
+  color:var(--cyan);
+  letter-spacing:.03em;
+}
+
+.section-header p{
+  margin:0;
+  color:var(--muted);
+  max-width:720px;
+  line-height:1.65;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:22px;
+  margin-top:18px;
+}
+
+.card{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(to bottom right, rgba(9,18,30,.96), rgba(6,12,20,.92));
+  border:1px solid rgba(0,234,255,.12);
+  border-radius:16px;
+  padding:22px;
+  box-shadow:
+    0 0 0 1px rgba(0,234,255,.04),
+    0 20px 50px rgba(0,0,0,.42);
+  transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+
+.card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(0,234,255,.20);
+  box-shadow:
+    0 0 0 1px rgba(0,234,255,.06),
+    0 0 26px rgba(0,234,255,.06),
+    0 24px 60px rgba(0,0,0,.55);
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-60px;
+  background-image:var(--card-wm);
+  background-repeat:no-repeat;
+  background-size:min(720px,70vw);
+  background-position:right -140px center;
+  opacity:.025;
+  filter:blur(1px);
+  pointer-events:none;
+}
+
+.card.live{
+  border-color:rgba(0,234,255,.22);
+  box-shadow:
+    0 0 0 1px rgba(0,234,255,.06),
+    0 0 34px rgba(0,234,255,.08),
+    0 20px 50px rgba(0,0,0,.45);
+}
+
+.card.progress{
+  border-color:rgba(214,163,74,.16);
+}
+
+.card h3{
+  margin:0 0 12px;
+  font-size:20px;
+  color:var(--cyan);
+  letter-spacing:.02em;
+}
+
+.card.progress h3{
+  color:#c9d7e8;
+}
+
+.card p{
+  color:var(--muted);
+  margin:0 0 12px;
+  line-height:1.7;
+}
+
+.tag-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:12px;
+}
+
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 10px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  text-decoration:none;
+}
+
+.pill.live{
+  border:1px solid rgba(0,234,255,.22);
+  background:rgba(0,234,255,.08);
+  color:var(--cyan);
+}
+
+.pill.progress{
+  border:1px solid rgba(214,163,74,.22);
+  background:rgba(214,163,74,.08);
+  color:var(--gold2);
+}
+
+.pill.locked{
+  border:1px solid rgba(255,79,216,.16);
+  background:rgba(255,79,216,.05);
+  color:#f2a2e8;
+}
+
+.button{
+  display:inline-block;
+  margin-top:10px;
+  padding:10px 14px;
+  border-radius:999px;
+  border:1px solid rgba(0,234,255,.18);
+  background:rgba(0,234,255,.08);
+  color:var(--cyan);
+  text-decoration:none;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.04em;
+}
+
+.button:hover{
+  background:rgba(0,234,255,.12);
+}
+
+.button.secondary{
+  border-color:rgba(214,163,74,.20);
+  background:rgba(214,163,74,.07);
+  color:var(--gold2);
+}
+
+.card-note{
+  margin-top:14px;
+  padding-top:14px;
+  border-top:1px solid rgba(0,234,255,.10);
+  font-size:12px;
+  color:rgba(0,234,255,.70);
+  letter-spacing:.05em;
+}
+
+.bridge{
+  margin-top:30px;
+  border:1px solid rgba(214,163,74,.24);
+  border-radius:18px;
+  padding:22px;
+  background:linear-gradient(to bottom right, rgba(17,14,8,.36), rgba(10,10,16,.82));
+  box-shadow:
+    0 0 0 1px rgba(214,163,74,.06),
+    0 0 24px rgba(214,163,74,.08),
+    0 18px 45px rgba(0,0,0,.42);
+}
+
+.bridge h2{
+  margin:0 0 12px;
+  font-size:26px;
+  color:var(--gold2);
+}
+
+.bridge p{
+  margin:0 0 14px;
+  color:#c5cddd;
+  line-height:1.75;
+}
+
+.bridge .quote{
+  margin-top:14px;
+  padding-top:14px;
+  border-top:1px solid rgba(214,163,74,.18);
+  color:var(--gold2);
+  font-style:italic;
+}
+
+.reflection{
+  margin:40px auto 0;
+  color:var(--muted);
+  position:relative;
+  z-index:1;
+}
+
+hr{
+  border:none;
+  border-top:1px solid rgba(0,234,255,.12);
+  margin:16px 0;
+}
+
+.footer-note{
+  font-size:14px;
+  line-height:1.7;
+  max-width:860px;
+}
+
+@media (max-width:900px){
+  .hero-grid{
+    grid-template-columns:1fr;
+  }
+  .hero-copy h1{
+    font-size:34px;
+  }
+}
+
+@media (max-width:640px){
+  body{padding-top:72px}
+  .hero-shell{padding:18px}
+  .section-card,.bridge{padding:18px}
+  .hero-copy h1{font-size:28px}
+  .section-header h2,.bridge h2{font-size:22px}
+}
+</style>
+</head>
+<body id="top">
+<div id="topbar-slot" data-topbar="universe"></div>
+<script src="https://satoshium.link/components/topbar-loader.js"></script>
+
+<main class="wrap content">
+
+  <section class="hero-shell" style="--card-wm:url('https://satoshium.link/assets/seal.png');">
+
+    <div class="suite-strip">
+      <span class="suite-label">WarGames Suite</span>
+      <span class="suite-item active">M01 Tic-Tac-Toe Signal Explorer</span>
+      <span class="suite-item">M02 Escalation Ladder <span class="status">In Progress</span></span>
+      <span class="suite-item">M03 Global Stability Simulator <span class="status">In Progress</span></span>
+      <span class="suite-item">M04 Coalition Signals <span class="status">In Progress</span></span>
+      <span class="suite-item">M05 Strategic Signal Lab <span class="status">In Progress</span></span>
+    </div>
+
+    <a class="kicker" href="#">Satoshium / WarGames Suite</a>
+
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <h1>Satoshium WarGames Suite</h1>
+        <div class="hero-subtitle">Signal reasoning, equilibrium, escalation, and strategic coordination</div>
+        <p>
+          The Satoshium WarGames Suite is a browser-based simulation environment built to explore how structured systems behave under pressure. It begins with solved equilibrium, then expands into escalation, instability, coalition dynamics, and open strategic coordination.
+        </p>
+        <p>
+          This is not a replica of the past. It is a Satoshium reinterpretation — using clear interfaces, explainable reasoning, and signal-aware design to transform famous strategic lessons into interactive educational instruments.
+        </p>
+        <div class="hero-quote">
+          “What begins as a lesson in inevitable equilibrium expands into a broader study of escalation, restraint, and strategic coordination.”
+        </div>
+      </div>
+
+      <aside class="hero-side">
+        <h2>Suite Purpose</h2>
+        <p>
+          Each module is designed to make a different class of system legible — from closed, solved environments to multi-actor spaces where signals, commitments, and instability reshape the future option set.
+        </p>
+        <p>
+          The suite preserves a WarGames atmosphere, but the philosophy remains unmistakably Satoshium: explainable, disciplined, browser-based, and built for long-horizon understanding rather than spectacle.
+        </p>
+        <div class="signal-line">Interactive strategic learning environments</div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section-card" style="--card-wm:url('https://satoshium.link/assets/seal.png');">
+    <div class="section-header">
+      <h2>Available & Planned Modules</h2>
+      <p>
+        Module 01 is now live. The remaining modules are actively being developed to extend the suite from solved-system observability into escalation dynamics, instability detection, coalition inference, and open strategic reasoning.
+      </p>
+    </div>
+
+    <div class="grid">
+
+      <div class="card live" style="--card-wm:url('https://satoshium.link/assets/seal.png');">
+        <div class="tag-row">
+          <span class="pill live">Module 01</span>
+          <span class="pill live">Live</span>
+        </div>
+        <h3>Tic-Tac-Toe Signal Explorer</h3>
+        <p>
+          A solved-system equilibrium observatory that makes convergence visible through direct interaction, repeated self-play, trajectory diversity, and rolling confidence metrics.
+        </p>
+        <p>
+          This opening module demonstrates how different move paths can still collapse into the same attractor state under optimal play — the foundational lesson of the suite.
+        </p>
+        <a href="https://satoshium.games/apps/wargames-suite/tic-tac-toe-signal/" class="button">Open Module 01 →</a>
+        <div class="card-note">Closed-system convergence under optimal play</div>
+      </div>
+
+      <div class="card progress" style="--card-wm:url('https://satoshium.link/assets/seal.png');">
+        <div class="tag-row">
+          <span class="pill progress">Module 02</span>
+          <span class="pill progress">In Progress</span>
+        </div>
+        <h3>Escalation Ladder</h3>
+        <p>
+          A signal-response environment showing how incremental commitments narrow future options, create lock-in, and transform reversible decisions into escalating structures.
+        </p>
+        <p>
+          This module will mark the suite’s first move beyond solved equilibrium into path-dependent strategic systems where timing and sequencing matter.
+        </p>
+        <a href="#" class="button secondary">In Progress</a>
+        <div class="card-note">Commitment, response, and option-space closure</div>
+      </div>
+
+      <div class="card progress" style="--card-wm:url('https://satoshium.link/assets/seal.png');">
+        <div class="tag-row">
+          <span class="pill progress">Module 03</span>
+          <span class="pill progress">In Progress</span>
+        </div>
+        <h3>Global Stability Simulator</h3>
+        <p>
+          A strategic environment for observing how symmetric adversarial systems can converge toward instability under escalating commitments, signaling failures, and deterrence paradox.
+        </p>
+        <p>
+          Its purpose is not conflict replication, but instability recognition — showing how fragile equilibrium can become legible before collapse.
+        </p>
+        <a href="#" class="button secondary">In Progress</a>
+        <div class="card-note">Deterrence paradox and instability detection</div>
+      </div>
+
+      <div class="card progress" style="--card-wm:url('https://satoshium.link/assets/seal.png');">
+        <div class="tag-row">
+          <span class="pill progress">Module 04</span>
+          <span class="pill progress">In Progress</span>
+        </div>
+        <h3>Coalition Signals</h3>
+        <p>
+          A multi-actor coordination environment exploring trust inference, shifting alignments, partial cooperation, and the signals that shape coalition formation over time.
+        </p>
+        <p>
+          This module extends the suite from bilateral strategic logic into systems where outcome structure is shaped by relationships, not just moves.
+        </p>
+        <a href="#" class="button secondary">In Progress</a>
+        <div class="card-note">Multi-actor coordination and trust inference</div>
+      </div>
+
+      <div class="card progress" style="--card-wm:url('https://satoshium.link/assets/seal.png');">
+        <div class="tag-row">
+          <span class="pill progress">Module 05</span>
+          <span class="pill progress">In Progress</span>
+        </div>
+        <h3>Strategic Signal Lab</h3>
+        <p>
+          An open strategic environment where outcomes are not predetermined, the option space remains fluid, and attractor states must be inferred rather than assumed.
+        </p>
+        <p>
+          This final module is intended to bring the suite into the most Satoshium-native territory: explainable coordination in open systems.
+        </p>
+        <a href="#" class="button secondary">In Progress</a>
+        <div class="card-note">Open strategic systems and non-closed environments</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="bridge">
+    <h2>From WarGames to Satoshium</h2>
+    <p>
+      The historical lesson behind this suite is not nostalgia. It is the recognition that some systems reveal their truth through repeated simulation. Some games converge. Some structures collapse. Some signal patterns narrow the future before participants understand what has changed.
+    </p>
+    <p>
+      Satoshium extends that lesson into a more disciplined framework: if systems can be observed, they can be interpreted; if they can be interpreted, they can be designed more responsibly. The WarGames Suite exists to make those system classes visible through direct experience rather than abstraction alone.
+    </p>
+    <p>
+      The result is a slightly different aesthetic than most Satoshium pages — still grounded in the platform’s cyan, gold, and dark console language, but with a stronger strategic-simulation atmosphere appropriate for this suite’s subject matter.
+    </p>
+    <div class="quote">
+      “The winning move is not only restraint — it is coordination, signal awareness, and understanding system dynamics.”
+    </div>
+  </section>
+
+  <section class="section-card" style="--card-wm:url('https://satoshium.link/assets/seal.png');">
+    <div class="section-header">
+      <h2>Suite Direction</h2>
+      <p>
+        The WarGames Suite begins with solved equilibrium, then expands into escalation, instability, coalition dynamics, and open strategic coordination. Each module builds the same core skill at greater complexity.
+      </p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Explainable System Classes</h3>
+        <p>
+          The suite is designed to make different system types observable — closed, semi-closed, unstable, multi-actor, and open — through browser-based simulation rather than opaque black-box presentation.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Signal-Aware Learning</h3>
+        <p>
+          Every module uses Satoshium’s broader design philosophy: structured signals, visible reasoning, and environments that help people understand behavior before it becomes irreversible.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Strategic Atmosphere, Platform Discipline</h3>
+        <p>
+          The suite carries a WarGames-style strategic mood, but it remains fully aligned with Satoshium’s identity: calm, architectural, explainable, and built for long-horizon platform coherence.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="wrap reflection">
+  <hr>
+  <div id="random-saying" class="footer-note">
+    Satoshium is building interactive environments that make strategic systems legible — one observable layer at a time.
+  </div>
+  <hr>
+  <div id="footer-container"></div>
+</div>
+
+<script src="https://satoshium.link/assets/sayings.js"></script>
+<script>
+fetch("https://satoshium.link/components/footer.html")
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById("footer-container").innerHTML = data;
+  });
+</script>
+
+<!-- Cloudflare Web Analytics -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1183478d1adc4f7ab3d63ff8cfaf459b"}'></script>
+<!-- End Cloudflare Web Analytics -->
+</body>
+</html>
