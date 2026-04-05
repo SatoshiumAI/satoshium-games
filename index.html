@@ -19,6 +19,18 @@
   --gold:#d6a34a;
   --gold2:#f4c36a;
   --line:rgba(214,163,74,.18);
+
+  --cyan:#00eaff;
+  --cyan2:#7cf6ff;
+  --cyan-line:rgba(0,234,255,.18);
+  --cyan-line-strong:rgba(0,234,255,.28);
+  --cyan-glow:rgba(0,234,255,.12);
+
+  --war-bg1:#050912;
+  --war-bg2:#08111d;
+  --war-panel:rgba(7,15,24,.95);
+  --war-line:rgba(0,234,255,.18);
+  --war-gold:rgba(214,163,74,.22);
 }
 *{box-sizing:border-box}
 html,body{
@@ -29,7 +41,7 @@ html,body{
   font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
 }
 body{padding-top:80px}
-.wrap{max-width:1100px;margin:0 auto;padding:0 18px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px}
 .wrap.content{
   opacity:0;
   transform:translateY(6px);
@@ -41,6 +53,7 @@ body{padding-top:80px}
 .content{padding:40px 0 60px}
 h1{font-size:30px;color:var(--gold2);margin:0 0 10px}
 h2{font-size:20px;color:var(--gold2);margin:0 0 10px}
+h3{font-size:18px;margin:0 0 10px}
 .muted{color:var(--muted)}
 .pill{
   display:inline-flex;
@@ -74,6 +87,12 @@ h2{font-size:20px;color:var(--gold2);margin:0 0 10px}
   grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
   gap:24px;
 }
+.modules-grid-3{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:22px;
+  margin-top:18px;
+}
 .card{
   position:relative;
   overflow:hidden;
@@ -100,7 +119,7 @@ h2{font-size:20px;color:var(--gold2);margin:0 0 10px}
   filter:blur(1px);
   pointer-events:none;
 }
-.card p{color:var(--muted);margin:0 0 12px}
+.card p{color:var(--muted);margin:0 0 12px;line-height:1.65}
 .card .pill{margin-top:8px}
 .hero-note{margin-top:18px;max-width:860px;line-height:1.65}
 .reflection{margin:40px auto 0;color:var(--muted)}
@@ -125,6 +144,222 @@ li{margin-bottom:8px}
 }
 .button:hover{
   background:rgba(214,163,74,.14);
+}
+
+/* ===== WarGames Suite row ===== */
+.wargames-row{
+  margin-top:22px;
+  position:relative;
+  overflow:hidden;
+  border-radius:20px;
+  padding:24px;
+  background:
+    radial-gradient(circle at top right, rgba(0,234,255,.10), transparent 28%),
+    linear-gradient(180deg, var(--war-bg2) 0%, var(--war-bg1) 100%);
+  border:1px solid var(--cyan-line);
+  box-shadow:
+    0 0 0 1px rgba(0,234,255,.05),
+    0 0 22px rgba(0,234,255,.08),
+    0 24px 60px rgba(0,0,0,.52);
+}
+.wargames-row::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0,234,255,.024) 0px,
+      rgba(0,234,255,.024) 1px,
+      transparent 1px,
+      transparent 5px
+    );
+  opacity:.38;
+  pointer-events:none;
+}
+.wargames-row::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(to right, rgba(0,234,255,.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,234,255,.02) 1px, transparent 1px);
+  background-size:72px 72px;
+  opacity:.14;
+  pointer-events:none;
+}
+
+.wargames-inner{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:24px;
+  align-items:stretch;
+}
+
+.wargames-copy{
+  padding:2px 0;
+}
+
+.wargames-kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 10px;
+  border:1px solid var(--war-gold);
+  border-radius:999px;
+  background:rgba(214,163,74,.08);
+  color:var(--gold2);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:14px;
+}
+
+.wargames-title{
+  margin:0 0 10px;
+  color:var(--cyan);
+  font-size:34px;
+  line-height:1.04;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  text-shadow:0 0 14px rgba(0,234,255,.22);
+}
+
+.wargames-subtitle{
+  margin:0 0 14px;
+  color:rgba(0,234,255,.72);
+  font-size:12px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+
+.wargames-copy p{
+  color:#b2c0d4;
+  margin:0 0 12px;
+  line-height:1.72;
+  max-width:720px;
+}
+
+.wargames-quote{
+  margin-top:16px;
+  padding:14px 16px;
+  border-left:2px solid rgba(214,163,74,.45);
+  background:rgba(214,163,74,.06);
+  border-radius:10px;
+  color:var(--gold2);
+  font-style:italic;
+}
+
+.wargames-side{
+  background:linear-gradient(to bottom right, rgba(6,14,22,.96), rgba(8,16,26,.92));
+  border:1px solid var(--cyan-line);
+  border-radius:16px;
+  padding:18px;
+  box-shadow:inset 0 0 0 1px rgba(0,234,255,.03);
+}
+
+.wargames-side h3{
+  color:var(--gold2);
+  font-size:13px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  margin:0 0 10px;
+}
+
+.wargames-side p{
+  color:#b8c4d6;
+  margin:0 0 12px;
+  line-height:1.68;
+  font-size:14px;
+}
+
+.wargames-status-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+  margin-top:14px;
+}
+
+.wargames-status{
+  border:1px solid rgba(0,234,255,.12);
+  border-radius:12px;
+  padding:10px 12px;
+  background:rgba(0,234,255,.03);
+}
+
+.wargames-status strong{
+  display:block;
+  color:var(--cyan2);
+  font-size:11px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  margin-bottom:5px;
+}
+
+.wargames-status span{
+  color:#9fb1c8;
+  font-size:13px;
+}
+
+.wargames-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:18px;
+}
+
+.wargames-button{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 14px;
+  border-radius:999px;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.04em;
+}
+
+.wargames-button.primary{
+  border:1px solid var(--cyan-line-strong);
+  background:rgba(0,234,255,.10);
+  color:var(--cyan);
+}
+
+.wargames-button.primary:hover{
+  background:rgba(0,234,255,.14);
+}
+
+.wargames-button.secondary{
+  border:1px solid rgba(214,163,74,.22);
+  background:rgba(214,163,74,.07);
+  color:var(--gold2);
+}
+
+.wargames-button.secondary:hover{
+  background:rgba(214,163,74,.11);
+}
+
+.section-subnote{
+  color:var(--muted);
+  margin-top:6px;
+  line-height:1.65;
+}
+
+@media (max-width:980px){
+  .modules-grid-3{
+    grid-template-columns:1fr;
+  }
+  .wargames-inner{
+    grid-template-columns:1fr;
+  }
+}
+
+@media (max-width:640px){
+  .wargames-title{font-size:28px}
 }
 </style>
 </head>
@@ -168,7 +403,11 @@ li{margin-bottom:8px}
 
   <section class="section-card" style="--card-wm:url('https://satoshium.link/assets/seal.png');">
     <h2>Available Modules</h2>
-    <div class="grid">
+    <p class="section-subnote">
+      Explore the live simulation environments currently available inside Satoshium Games, followed by the developing WarGames Suite.
+    </p>
+
+    <div class="modules-grid-3">
 
       <div class="card" style="--card-wm:url('https://satoshium.link/assets/seal.png');">
         <h2>Chess Signal <span class="pill" style="margin-bottom:8px;">Live Module</span></h2>
@@ -181,41 +420,81 @@ li{margin-bottom:8px}
         <a href="./apps/chess-signal/" class="pill">Open Chess Signal →</a>
       </div>
 
+      <div class="card" style="--card-wm:url('https://satoshium.link/assets/seal.png');">
+        <h2>Signal Coordination <span class="pill" style="margin-bottom:8px;">Live Module</span></h2>
+        <p>
+          Signal Coordination is a browser-based multi-agent alignment simulator in Satoshium Games that reveals how shared signals shape cooperation, competition, and coalition structure over time.
+        </p>
+        <p>
+          It makes coordination dynamics visible in real time through explainable feedback — showing how group behavior stabilizes, shifts, or fragments as conditions change.
+        </p>
+        <a href="./apps/signal-coordination/" class="pill">Open Signal Coordination →</a>
+      </div>
+
+      <div class="card" style="--card-wm:url('https://satoshium.link/assets/seal.png');">
+        <h2>Trust Dynamics <span class="pill" style="margin-bottom:8px;">Live Module</span></h2>
+        <p>
+          Trust Dynamics is a browser-based multi-agent trust simulator in Satoshium that reveals how shared confidence, fragility, and dependence shift across a network over time.
+        </p>
+        <p>
+          It makes trust dynamics visible in real time through explainable feedback — showing how relationship strength, anchor stability, and collapse risk evolve as conditions change.
+        </p>
+        <a href="./apps/trust-dynamics/" class="pill">Open Trust Dynamics →</a>
+      </div>
+
     </div>
-<div class="grid">
 
-  <div class="card" style="--card-wm:url('https://satoshium.link/assets/seal.png');">
-    <h2>Signal Coordination <span class="pill" style="margin-bottom:8px;">Live Module</span></h2>
-    <p>
-      Signal Coordination is a browser-based multi-agent alignment simulator in Satoshium Games that reveals how shared signals shape cooperation, competition, and coalition structure over time.
-    </p>
-   
-    <p>
-      It makes coordination dynamics visible in real time through explainable feedback—showing how group behavior stabilizes, shifts, or fragments as conditions change.
-    </p>
+    <div class="wargames-row">
+      <div class="wargames-inner">
 
-    <a href="./apps/signal-coordination/" class="pill">Open Signal Coordination →</a>
-  </div>
+        <div class="wargames-copy">
+          <div class="wargames-kicker">Satoshium WarGames Suite</div>
+          <h2 class="wargames-title">Observe strategic systems before they harden</h2>
+          <div class="wargames-subtitle">A different simulation line inside Satoshium Games</div>
+          <p>
+            The Satoshium WarGames Suite is a structured learning environment built to explore solved equilibrium, escalation, instability, coalition dynamics, and open strategic coordination.
+          </p>
+          <p>
+            It carries a stronger strategic-simulation atmosphere than the rest of Satoshium Games — still unmistakably Satoshium in color and discipline, but with a more focused command-console feel that invites the question: what kind of system am I looking at?
+          </p>
+          <div class="wargames-quote">
+            “What begins as a lesson in inevitable equilibrium expands into a broader study of escalation, restraint, and strategic coordination.”
+          </div>
 
-</div>
-    
-<div class="grid">
+          <div class="wargames-actions">
+            <a href="./apps/wargames-suite/" class="wargames-button primary">Open WarGames Suite →</a>
+            <a href="https://satoshium.games/apps/wargames-suite/tic-tac-toe-signal/" class="wargames-button secondary">Launch Module 01 →</a>
+          </div>
+        </div>
 
-  <div class="card" style="--card-wm:url('https://satoshium.link/assets/seal.png');">
-    <h2>Trust Dynamics <span class="pill" style="margin-bottom:8px;">Live Module</span></h2>
-    <p>
-      Trust Dynamics is a browser-based multi-agent trust simulator in Satoshium that reveals how shared confidence, fragility, and dependence shift across a network over time.
-    </p>
+        <aside class="wargames-side">
+          <h3>Suite Status</h3>
+          <p>
+            Module 01 is now live, while the remaining modules are in progress. The suite begins with solved systems, then moves into escalation ladders, global stability modeling, coalition signals, and open strategic labs.
+          </p>
+          <div class="wargames-status-grid">
+            <div class="wargames-status">
+              <strong>Module 01</strong>
+              <span>Live now</span>
+            </div>
+            <div class="wargames-status">
+              <strong>Modules 02–05</strong>
+              <span>In progress</span>
+            </div>
+            <div class="wargames-status">
+              <strong>Atmosphere</strong>
+              <span>Strategic console</span>
+            </div>
+            <div class="wargames-status">
+              <strong>Purpose</strong>
+              <span>Signal reasoning</span>
+            </div>
+          </div>
+        </aside>
 
-    <p>
-      It makes trust dynamics visible in real time through explainable feedback—showing how relationship strength, anchor stability, and collapse risk evolve as conditions change.
-    </p>
+      </div>
+    </div>
 
-    <a href="./apps/trust-dynamics/" class="pill">Open Trust Dynamics →</a>
-  </div>
-
-</div>
-    
   </section>
 
   <section>
@@ -270,6 +549,6 @@ fetch("https://satoshium.link/components/footer.html")
     document.getElementById("footer-container").innerHTML = data;
   });
 </script>
-  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1183478d1adc4f7ab3d63ff8cfaf459b"}'></script><!-- End Cloudflare Web Analytics -->
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1183478d1adc4f7ab3d63ff8cfaf459b"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
