@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<title>Coalition Signals — Module 04 · Satoshium WarGames Suite</title>
+<meta name="description" content="A multi-actor coordination environment exploring trust inference, shifting alignments, partial cooperation, and the signals that shape coalition formation over time." />
+<meta property="og:title" content="Coalition Signals · Satoshium WarGames Suite" />
+<meta property="og:description" content="Module 04 of the Satoshium WarGames Suite. Explore trust inference, coalition formation, and strategic alignment dynamics through interactive simulation." />
+<meta property="og:type" content="website" />
+<link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+
+<!-- ─── TOPBAR ─────────────────────────────────────────── -->
+<header id="topbar">
+  <div class="topbar-left">
+    <a href="https://satoshium.games/apps/wargames-suite/" class="topbar-brand">SATOSHIUM</a>
+    <span class="topbar-sep">/</span>
+    <span class="topbar-suite">WarGames Suite</span>
+  </div>
+
+  <nav class="topbar-center">
+    <div class="module-progress">
+      <a href="https://satoshium.games/apps/wargames-suite/tic-tac-toe-signal/" class="mp-item" title="Module 01 — Tic-Tac-Toe Signal Explorer">M01</a>
+      <span class="mp-arrow">›</span>
+      <a href="https://satoshium.games/apps/wargames-suite/escalation-ladder/" class="mp-item" title="Module 02 — Escalation Ladder">M02</a>
+      <span class="mp-arrow">›</span>
+      <a href="https://satoshium.games/apps/wargames-suite/global-stability/" class="mp-item" title="Module 03 — Global Stability Simulator">M03</a>
+      <span class="mp-arrow">›</span>
+      <span class="mp-item active" title="Module 04 — Coalition Signals (current)">M04</span>
+      <span class="mp-arrow">›</span>
+      <a href="https://satoshium.games/apps/wargames-suite/strategic-signal-lab/" class="mp-item" title="Module 05 — Strategic Signal Lab">M05</a>
+    </div>
+  </nav>
+
+  <div class="topbar-right">
+    <a href="https://satoshium.games/apps/wargames-suite/" class="btn-back">&#8592; All Modules</a>
+  </div>
+</header>
+
+<!-- ─── PAGE CONTENT ───────────────────────────────────── -->
+<div class="wrap">
+
+  <!-- ── HERO ─────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-kicker">
+      MODULE 04 / COALITION SIGNALS
+      <span class="live-pill">LIVE MODULE</span>
+    </div>
+    <h1 class="hero-title">Coalition Signals</h1>
+    <p class="hero-subtitle">Trust inference, shifting alignments, and the signals that shape coalition formation.</p>
+    <p class="hero-desc">
+      A multi-actor coordination environment exploring how alliances form, harden, fracture, or dissolve
+      under pressure. This module extends the suite from bilateral strategic logic into systems where
+      outcome structure is shaped by relationships, not just moves. Observe how small shifts in trust,
+      signaling, and restraint can reorganize the entire strategic field.
+    </p>
+  </section>
+
+  <!-- ── SCENARIO SELECTOR ─────────────────────────────── -->
+  <div id="scenario-select-row">
+    <span class="scenario-label">Scenario</span>
+    <button class="scenario-btn active" data-scenario="fragileBalance">Fragile Balance</button>
+    <button class="scenario-btn" data-scenario="risingPressure">Rising Pressure</button>
+    <button class="scenario-btn" data-scenario="opportunistPivot">Opportunist Pivot</button>
+    <button class="scenario-btn" data-scenario="trustCollapse">Trust Collapse</button>
+    <button class="scenario-btn" data-scenario="partialCooperation">Partial Cooperation</button>
+  </div>
+
+  <!-- ── CONTROLS ──────────────────────────────────────── -->
+  <div id="controls">
+    <div class="ctrl-group">
+      <button class="ctrl-btn primary" id="btn-play">
+        <svg width="10" height="10" viewBox="0 0 10 10"><polygon points="1,0 10,5 1,10" fill="currentColor"/></svg>
+        Play
+      </button>
+      <button class="ctrl-btn" id="btn-step">
+        <svg width="10" height="10" viewBox="0 0 10 10"><polygon points="0,0 7,5 0,10" fill="currentColor"/><rect x="8" y="0" width="2" height="10" fill="currentColor"/></svg>
+        Step
+      </button>
+      <button class="ctrl-btn" id="btn-reset">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8.5 5a3.5 3.5 0 1 1-1-2.45"/><polyline points="6,0 8.5,2.5 6,5"/></svg>
+        Reset
+      </button>
+      <button class="ctrl-btn" id="btn-random">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><circle cx="2" cy="2" r="1.5"/><circle cx="8" cy="2" r="1.5"/><circle cx="5" cy="8" r="1.5"/></svg>
+        Randomize
+      </button>
+    </div>
+
+    <span class="ctrl-sep"></span>
+
+    <div class="ctrl-speed">
+      <span class="ctrl-label">Speed</span>
+      <input type="range" class="speed-slider" id="speed-slider" min="200" max="2000" value="1000" step="100" />
+    </div>
+
+    <span class="ctrl-sep"></span>
+
+    <span class="condition-badge" id="condition-badge">Initial State</span>
+    <span class="round-badge" id="round-badge">ROUND 00</span>
+  </div>
+
+  <!-- ── METRICS GRID ───────────────────────────────────── -->
+  <div id="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Trust Density</div>
+      <div class="metric-value"><span id="m-trust">50.0</span></div>
+      <div class="metric-bar-wrap"><div class="metric-bar" id="bar-trust" style="width:50%"></div></div>
+      <div class="metric-tooltip">Average pairwise trust across all actors. Higher values indicate a more cooperative system overall.</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Fragmentation</div>
+      <div class="metric-value"><span id="m-frag">0.0</span><span class="suffix">%</span></div>
+      <div class="metric-bar-wrap"><div class="metric-bar gold" id="bar-frag" style="width:0%"></div></div>
+      <div class="metric-tooltip">Percentage of actors in distinct unaligned blocs. High fragmentation means no dominant coalition has formed.</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Dominant Bloc</div>
+      <div class="metric-value"><span id="m-bloc">0.0</span><span class="suffix">%</span></div>
+      <div class="metric-bar-wrap"><div class="metric-bar" id="bar-bloc" style="width:0%"></div></div>
+      <div class="metric-tooltip">Size of the largest active coalition relative to total actors. 100% means all actors are unified.</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Cooperation Ratio</div>
+      <div class="metric-value"><span id="m-coop">50.0</span><span class="suffix">%</span></div>
+      <div class="metric-bar-wrap"><div class="metric-bar" id="bar-coop" style="width:50%"></div></div>
+      <div class="metric-tooltip">Ratio of actors choosing cooperative actions this round vs defecting or isolating.</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">System Volatility</div>
+      <div class="metric-value"><span id="m-vol">50.0</span></div>
+      <div class="metric-bar-wrap"><div class="metric-bar red" id="bar-vol" style="width:50%"></div></div>
+      <div class="metric-tooltip">Measure of instability — inverse of trust density. High volatility signals a fragile or rapidly shifting environment.</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Total Pivots</div>
+      <div class="metric-value"><span id="m-pivots">0</span></div>
+      <div class="metric-bar-wrap"><div class="metric-bar red" id="bar-pivots" style="width:0%"></div></div>
+      <div class="metric-tooltip">Running count of defections and strategic realignments. High pivot counts indicate systemic instability.</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Coalition Stability</div>
+      <div class="metric-value"><span id="m-stability">0.0</span></div>
+      <div class="metric-bar-wrap"><div class="metric-bar" id="bar-stability" style="width:0%"></div></div>
+      <div class="metric-tooltip">How durable is the dominant coalition? High when internal trust greatly exceeds external trust, and recent volatility and defections are low.</div>
+    </div>
+  </div>
+
+  <!-- ── MAIN GRID ─────────────────────────────────────── -->
+  <div id="main-grid">
+
+    <!-- LEFT: Topology + Log -->
+    <div class="left-col">
+
+      <!-- Coalition Summary Ribbon -->
+      <div class="coalition-ribbon" id="coalition-ribbon">
+        <div class="ribbon-label" id="ribbon-label">FRAGMENTED SYSTEM</div>
+        <div class="ribbon-details" id="ribbon-details">Awaiting simulation start...</div>
+        <div class="ribbon-sublabel" id="ribbon-sublabel" style="display:none"></div>
+      </div>
+
+      <!-- Coalition Map -->
+      <div class="panel" id="topology-panel">
+        <div class="panel-header">
+          <span class="panel-title">Strategic Topology</span>
+          <div class="coalition-status" id="coalition-badges">
+            <span class="coalition-badge isolated">Awaiting simulation...</span>
+          </div>
+        </div>
+        <div class="panel-body">
+          <svg id="topology-svg" viewBox="0 0 480 420" xmlns="http://www.w3.org/2000/svg"></svg>
+        </div>
+      </div>
+
+      <!-- Explainability Log -->
+      <div class="panel" id="log-panel">
+        <div class="panel-header">
+          <span class="panel-title">Explainability Log</span>
+          <span class="panel-title" id="log-count">—</span>
+        </div>
+        <div class="panel-body">
+          <div id="log-entries">
+            <div class="log-empty">Awaiting simulation start...</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /left-col -->
+
+    <!-- RIGHT: Actor Cards -->
+    <div class="right-col" id="actor-cards-col">
+      <!-- Rendered by JS -->
+    </div>
+
+  </div><!-- /main-grid -->
+
+</div><!-- /wrap -->
+
+<!-- ─── FOOTER ─────────────────────────────────────────── -->
+<footer id="footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-copy">
+        Satoshium WarGames Suite — Module 04 of 05<br />
+        Coalition Signals is a browser-based strategic coordination environment. No server dependencies. No data collection.
+      </div>
+      <div class="footer-links">
+        <a href="https://satoshium.games/apps/wargames-suite/" class="footer-link">&#8592; Back to Suite</a>
+        <a href="https://satoshium.games/" class="footer-link">Satoshium</a>
+      </div>
+      <div class="footer-copy" style="text-align:right; color: var(--dim)">
+        &copy; Satoshium
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── SCRIPTS ────────────────────────────────────────── -->
+<script src="./actors.js"></script>
+<script src="./scenarios.js"></script>
+<script src="./simulation.js"></script>
+<script src="./topology.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════
+// MAIN CONTROLLER
+// ═══════════════════════════════════════════════════════
+
+let state        = null;
+let isPlaying    = false;
+let playInterval = null;
+let currentScenario = 'fragileBalance';
+
+// ── Init ──────────────────────────────────────────────
+function init(scenarioId) {
+  currentScenario = scenarioId || currentScenario;
+  state = createInitialState(currentScenario);
+  stopPlaying();
+  render();
+}
+
+// ── Step one round ────────────────────────────────────
+function step() {
+  if (!state || state.isFinished) return;
+  state = runRound(state);
+  render();
+  if (state.isFinished) stopPlaying();
+}
+
+// ── Auto-play ─────────────────────────────────────────
+function startPlaying() {
+  if (isPlaying) return;
+  isPlaying = true;
+  updatePlayBtn();
+  const speed = getSpeed();
+  playInterval = setInterval(() => {
+    if (!state || state.isFinished) { stopPlaying(); return; }
+    state = runRound(state);
+    render();
+  }, speed);
+}
+
+function stopPlaying() {
+  isPlaying = false;
+  updatePlayBtn();
+  clearInterval(playInterval);
+  playInterval = null;
+}
+
+function togglePlay() {
+  if (isPlaying) stopPlaying(); else startPlaying();
+}
+
+function getSpeed() {
+  const slider = document.getElementById('speed-slider');
+  return slider ? (2200 - Number(slider.value)) : 1000;
+}
+
+function updatePlayBtn() {
+  const btn = document.getElementById('btn-play');
+  if (!btn) return;
+  if (isPlaying) {
+    btn.innerHTML = '<svg width="10" height="10" viewBox="0 0 10 10"><rect x="0" y="0" width="3.5" height="10" fill="currentColor"/><rect x="6.5" y="0" width="3.5" height="10" fill="currentColor"/></svg> Pause';
+  } else {
+    btn.innerHTML = '<svg width="10" height="10" viewBox="0 0 10 10"><polygon points="1,0 10,5 1,10" fill="currentColor"/></svg> Play';
+  }
+}
+
+// ── Randomize ─────────────────────────────────────────
+function randomize() {
+  stopPlaying();
+  state = createInitialState(currentScenario);
+  // Extra randomisation on top of scenario setup
+  ACTOR_IDS.forEach(id => {
+    const a = state.actors[id];
+    Object.keys(a.attrs).forEach(k => {
+      a.attrs[k] = Math.round(clamp(a.attrs[k] + randDelta(20), 5, 95));
+    });
+    ACTOR_IDS.forEach(oid => {
+      if (oid !== id) a.trust[oid] = Math.round(clamp(a.trust[oid] + randDelta(20), 5, 95));
+    });
+  });
+  updateCoalitions(state.actors);
+  state.metrics = calcMetrics(state.actors, 0);
+  state.coalitionClassification = calcCoalitionClassification(state.actors, state.metrics);
+  render();
+}
+
+// ── Full render ───────────────────────────────────────
+function render() {
+  renderMetrics(state);
+  renderTopology(state);
+  renderCoalitionRibbon(state);
+  renderCoalitionBadges(state);
+  renderActorCards(state);
+  renderLog(state);
+  renderRoundBadge(state);
+}
+
+// ── Metrics ───────────────────────────────────────────
+function renderMetrics(s) {
+  const m = s.metrics;
+  setMetric('m-trust',     'bar-trust',     m.trustDensity,          m.trustDensity,                   '');
+  setMetric('m-frag',      'bar-frag',      m.fragmentationIndex,    m.fragmentationIndex,             '%');
+  setMetric('m-bloc',      'bar-bloc',      m.dominantBlocStrength,  m.dominantBlocStrength,           '%');
+  setMetric('m-coop',      'bar-coop',      m.cooperationRatio,      m.cooperationRatio,               '%');
+  setMetric('m-vol',       'bar-vol',       m.systemVolatility,      m.systemVolatility,               '');
+  setMetric('m-pivots',    'bar-pivots',    m.totalPivots,           Math.min(100, m.totalPivots * 5), '', true);
+  setMetric('m-stability', 'bar-stability', m.coalitionStability,    m.coalitionStability,             '');
+}
+
+function setMetric(valId, barId, value, barPct, suffix, isInt) {
+  const valEl = document.getElementById(valId);
+  const barEl = document.getElementById(barId);
+  if (valEl) valEl.textContent = isInt ? Math.round(value) : value.toFixed(1);
+  if (barEl) barEl.style.width = Math.min(100, Math.max(0, barPct)).toFixed(1) + '%';
+}
+
+// ── Round + Condition ─────────────────────────────────
+function renderRoundBadge(s) {
+  const rb = document.getElementById('round-badge');
+  if (rb) rb.textContent = 'ROUND ' + String(s.round).padStart(2, '0');
+  const cb = document.getElementById('condition-badge');
+  if (cb) cb.textContent = s.condition.name;
+}
+
+// ── Actor Cards ───────────────────────────────────────
+function renderActorCards(s) {
+  const col = document.getElementById('actor-cards-col');
+  if (!col) return;
+
+  col.innerHTML = ACTOR_IDS.map(id => {
+    const a = s.actors[id];
+    const trustVals = ACTOR_IDS.filter(oid => oid !== id).map(oid => a.trust[oid]);
+    const trustAvg  = trustVals.reduce((x, y) => x + y, 0) / trustVals.length;
+
+    return `
+<div class="actor-card" data-id="${id}">
+  <div class="actor-card-header">
+    <div class="actor-name-row">
+      <div class="actor-dot" style="background:${a.color}; box-shadow:0 0 6px ${a.color}"></div>
+      <span class="actor-name">${a.name}</span>
+    </div>
+    <span class="actor-stance">${a.stance}</span>
+  </div>
+  <div class="actor-bars">
+    ${actorBar('Trust Avg', trustAvg)}
+    ${actorBar('Cooperation', a.attrs.cooperationTendency)}
+    ${actorBar('Risk Tol.', a.attrs.riskTolerance)}
+  </div>
+  <div class="actor-footer">
+    <span class="actor-footer-label">Last Action:</span>
+    <span class="actor-footer-val">${a.lastAction}</span>
+  </div>
+</div>`;
+  }).join('');
+}
+
+function actorBar(label, value) {
+  const v = Math.round(value);
+  return `
+<div class="actor-bar-row">
+  <span class="actor-bar-label">${label}</span>
+  <div class="actor-bar-track">
+    <div class="actor-bar-fill" style="width:${v}%"></div>
+  </div>
+  <span class="actor-bar-val">${v}</span>
+</div>`;
+}
+
+// ── Explainability Log ────────────────────────────────
+function renderLog(s) {
+  const el = document.getElementById('log-entries');
+  const cnt = document.getElementById('log-count');
+  if (!el) return;
+
+  if (!s.log.length) {
+    el.innerHTML = '<div class="log-empty">Awaiting simulation start...</div>';
+    if (cnt) cnt.textContent = '—';
+    return;
+  }
+
+  if (cnt) cnt.textContent = s.log.length + ' rounds recorded';
+
+  el.innerHTML = s.log.map(entry => {
+    const eventLines = entry.events
+      .map(e => `<div class="log-event">${e}</div>`)
+      .join('');
+    return `
+<div class="log-entry">
+  <div class="log-round-header">
+    <span class="log-round-num">Round ${String(entry.round).padStart(2, '0')}</span>
+    <span class="log-condition">${entry.condition}</span>
+  </div>
+  ${eventLines}
+</div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════════════
+// EVENT BINDINGS
+// ══════════════════════════════════════════════════════
+
+document.getElementById('btn-play').addEventListener('click', togglePlay);
+
+document.getElementById('btn-step').addEventListener('click', () => {
+  stopPlaying();
+  step();
+});
+
+document.getElementById('btn-reset').addEventListener('click', () => {
+  init(currentScenario);
+});
+
+document.getElementById('btn-random').addEventListener('click', randomize);
+
+document.getElementById('speed-slider').addEventListener('input', () => {
+  if (isPlaying) {
+    stopPlaying();
+    startPlaying();
+  }
+});
+
+// Scenario buttons
+document.querySelectorAll('.scenario-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    init(btn.dataset.scenario);
+  });
+});
+
+// ══════════════════════════════════════════════════════
+// BOOT
+// ══════════════════════════════════════════════════════
+init('fragileBalance');
+</script>
+</body>
+</html>
