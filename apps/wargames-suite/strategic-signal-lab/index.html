@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Strategic Signal Lab — Module 05 · Satoshium WarGames Suite</title>
+  <meta name="description" content="An open strategic field where outcomes are not predetermined. Structure emerges from signals, incentives, interventions, and accumulated decisions across actors." />
+  <meta property="og:title" content="Strategic Signal Lab · Satoshium WarGames Suite" />
+  <meta property="og:description" content="Module 05 of the Satoshium WarGames Suite. An open strategic environment for attractor inference, signal analysis, and explainable coordination dynamics." />
+  <meta property="og:url" content="https://satoshium.games/apps/wargames-suite/strategic-signal-lab/" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="styles.css?v=8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ─── TOPBAR ─────────────────────────────────────────── -->
+<header id="topbar">
+  <div class="topbar-left">
+    <a href="https://satoshium.games/apps/wargames-suite/" class="topbar-brand">SATOSHIUM</a>
+    <span class="topbar-sep">/</span>
+    <span class="topbar-suite-name">WarGames Suite</span>
+  </div>
+
+  <nav class="topbar-center">
+    <div class="module-progress">
+      <a href="https://satoshium.games/apps/wargames-suite/tic-tac-toe-signal/" class="mp-item" title="Module 01 — Tic-Tac-Toe Signal Explorer">M01</a>
+      <span class="mp-arrow">›</span>
+      <a href="https://satoshium.games/apps/wargames-suite/escalation-ladder/" class="mp-item" title="Module 02 — Escalation Ladder">M02</a>
+      <span class="mp-arrow">›</span>
+      <a href="https://satoshium.games/apps/wargames-suite/global-stability/" class="mp-item" title="Module 03 — Global Stability Simulator">M03</a>
+      <span class="mp-arrow">›</span>
+      <a href="https://satoshium.games/apps/wargames-suite/coalition-signals/" class="mp-item" title="Module 04 — Coalition Signals">M04</a>
+      <span class="mp-arrow">›</span>
+      <span class="mp-item active" title="Module 05 — Strategic Signal Lab (current)">M05</span>
+    </div>
+  </nav>
+
+  <div class="topbar-right">
+    <a href="https://satoshium.games/apps/wargames-suite/" class="btn-back">&#8592; All Modules</a>
+  </div>
+</header>
+
+<!-- ─── PAGE CONTENT ─────────────────────────────────────────────────────────── -->
+<div class="page-content">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">Module 05 — Final Module</div>
+    <h1 class="hero-title"><span>Strategic</span> Signal Lab</h1>
+    <div class="hero-subtitle">Open Strategic Environment · Attractor Inference · Explainable Coordination</div>
+    <div class="hero-body">
+      <p>This is an open strategic field where outcomes are not predetermined. No single attractor governs the system — structure emerges from signals, incentives, interventions, and accumulated decisions across actors.</p>
+      <p>Watch how ambiguity reshapes alignment. Inject interventions, observe coordination form or fragment, and assess whether apparent stability reflects convergence — or temporary equilibrium under pressure.</p>
+    </div>
+  </section>
+
+  <!-- FIELD STATUS BANNER -->
+  <div class="field-ribbon ribbon-open" id="field-ribbon">
+    <div class="ribbon-left">
+      <div class="ribbon-indicator"></div>
+    </div>
+    <div class="ribbon-body">
+      <div class="ribbon-text" id="ribbon-text">FIELD CONDITION — OPEN STRATEGIC FIELD</div>
+      <div class="ribbon-sub" id="ribbon-sub">No dominant attractor detected across active signal channels</div>
+    </div>
+    <div class="ribbon-badge" id="ribbon-badge">INITIALIZING</div>
+  </div>
+
+  <!-- METRICS ROW -->
+  <div class="metrics-row" id="metrics-row">
+    <div class="metric-card metric-cyan">
+      <div class="metric-label">Signal Coherence</div>
+      <div class="metric-value" id="m-coherence">—</div>
+      <div class="metric-bar"><div class="metric-bar-fill" id="mb-coherence" style="width:0%"></div></div>
+    </div>
+    <div class="metric-card metric-gold">
+      <div class="metric-label">Attractor Confidence</div>
+      <div class="metric-value" id="m-attractor">—</div>
+      <div class="metric-bar"><div class="metric-bar-fill" id="mb-attractor" style="width:0%"></div></div>
+    </div>
+    <div class="metric-card metric-red">
+      <div class="metric-label">Fragmentation</div>
+      <div class="metric-value" id="m-fragment">—</div>
+      <div class="metric-bar"><div class="metric-bar-fill" id="mb-fragment" style="width:0%"></div></div>
+    </div>
+    <div class="metric-card metric-violet">
+      <div class="metric-label">Volatility</div>
+      <div class="metric-value" id="m-volatility">—</div>
+      <div class="metric-bar"><div class="metric-bar-fill" id="mb-volatility" style="width:0%"></div></div>
+    </div>
+    <div class="metric-card metric-gold">
+      <div class="metric-label">Intervention Load</div>
+      <div class="metric-value" id="m-interv">—</div>
+      <div class="metric-bar"><div class="metric-bar-fill" id="mb-interv" style="width:0%"></div></div>
+    </div>
+    <div class="metric-card metric-green">
+      <div class="metric-label">Coordination Ratio</div>
+      <div class="metric-value" id="m-coord">—</div>
+      <div class="metric-bar"><div class="metric-bar-fill" id="mb-coord" style="width:0%"></div></div>
+    </div>
+    <div class="metric-card metric-red">
+      <div class="metric-label">False Conv. Risk</div>
+      <div class="metric-value" id="m-fcr">—</div>
+      <div class="metric-bar"><div class="metric-bar-fill" id="mb-fcr" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <!-- SCENARIO SELECTION -->
+  <div class="section">
+    <div class="section-label">Field Preset</div>
+    <div class="scenario-row" id="scenario-row">
+      <!-- populated by JS -->
+    </div>
+  </div>
+
+  <!-- ATTRACTOR CLASSIFICATION BAR -->
+  <div class="attractor-bar" id="attractor-bar"></div>
+
+  <!-- MAIN GRID: TOPOLOGY + ACTOR CARDS -->
+  <div class="main-grid">
+
+    <!-- TOPOLOGY PANEL -->
+    <div class="topology-panel">
+      <div class="panel-header">
+        <span class="panel-title">Strategic Field Topology</span>
+        <span class="panel-tag" id="topology-tag">FIELD ACTIVE</span>
+      </div>
+      <div class="topology-canvas-wrap" id="topology-wrap">
+        <canvas id="topology-canvas"></canvas>
+      </div>
+      <div class="topology-legend">
+        <div class="legend-item">
+          <div class="legend-line legend-solid-cyan"></div>
+          <span>Strong alignment</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-line legend-dashed-gold"></div>
+          <span>Provisional / conditional</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-line legend-dotted-slate"></div>
+          <span>Weak signal channel</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:rgba(0,200,255,0.15);border:1px dashed rgba(0,200,255,0.3);"></div>
+          <span>Attractor halo</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:rgba(0,200,255,0.6);box-shadow:0 0 5px rgba(0,200,255,0.6)"></div>
+          <span>Intervention focus</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTOR CARDS PANEL -->
+    <div class="actor-panel" id="actor-panel">
+      <!-- populated by JS -->
+    </div>
+
+  </div>
+
+  <!-- CONTROL ROW -->
+  <div class="control-row">
+    <button class="ctrl-btn primary" id="btn-play" title="Run simulation">▶ Run</button>
+    <button class="ctrl-btn" id="btn-step" title="Advance one round">Step →</button>
+    <button class="ctrl-btn danger" id="btn-reset" title="Reset to scenario initial state">↺ Reset</button>
+    <button class="ctrl-btn" id="btn-randomize" title="Randomize field parameters">⊛ Randomize</button>
+    <div class="ctrl-divider"></div>
+    <div class="ctrl-group">
+      <span class="ctrl-label">Speed</span>
+      <input type="range" class="speed-slider" id="speed-slider" min="300" max="3500" value="1800" />
+    </div>
+    <div class="ctrl-divider"></div>
+    <select class="intervention-select" id="intervention-select">
+      <option value="">— Select Intervention —</option>
+    </select>
+    <button class="ctrl-btn" id="btn-apply" title="Apply intervention at next step">Apply</button>
+    <div class="ctrl-divider"></div>
+    <span class="round-counter" id="round-counter">Round 1</span>
+  </div>
+
+  <!-- EXPLAINABILITY LOG -->
+  <div class="log-panel">
+    <div class="log-header">
+      <span class="log-title">Explainability Log</span>
+      <button class="log-clear-btn" id="btn-clear-log">Clear</button>
+    </div>
+    <div class="log-body" id="log-body">
+      <div class="log-entry">
+        <div class="log-entry-round">SYSTEM</div>
+        <div class="log-entry-line">Select a field preset to initialize the simulation. Each preset seeds a distinct strategic configuration — different initial trust levels, link structures, and attractor tendencies. Every round and intervention produces a human-readable explanation of what changed and why.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end page-content -->
+
+<!-- ─── FOOTER ────────────────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <span class="footer-suite">Satoshium WarGames Suite</span>
+    <span class="footer-module">05 / Strategic Signal Lab</span>
+    <nav class="footer-nav">
+      <a href="https://satoshium.games/apps/wargames-suite/tic-tac-toe-signal/">Module 01</a>
+      <a href="https://satoshium.games/apps/wargames-suite/escalation-ladder/">Module 02</a>
+      <a href="https://satoshium.games/apps/wargames-suite/global-stability/">Module 03</a>
+      <a href="https://satoshium.games/apps/wargames-suite/coalition-signals/">Module 04</a>
+      <a href="https://satoshium.games/apps/wargames-suite/">All Modules</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="actors.js"></script>
+<script src="scenarios.js"></script>
+<script src="topology.js"></script>
+<script src="simulation.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
