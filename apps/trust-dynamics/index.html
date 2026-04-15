@@ -3,24 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trust Dynamics — Satoshium</title>
+  <title>Trust Dynamics — Satoshium Games</title>
   <meta name="description" content="Multi-agent trust interaction modeling. Observe how trust forms, decays, stabilizes, fractures, repairs, and cascades across a group of agents.">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <meta property="og:title" content="Trust Dynamics — Satoshium">
-  <meta property="og:description" content="Multi-agent trust interaction modeling simulation.">
-  <meta property="og:image" content="./opengraph.jpg">
+ 
+  <!-- TIER 3 — SEO: Open Graph (completed — added missing url, site_name, locale; fixed relative image path) -->
+  <meta property="og:title" content="Trust Dynamics — Satoshium Games">
+  <meta property="og:description" content="Multi-agent trust interaction modeling simulation. Observe how trust forms, decays, stabilizes, fractures, repairs, and cascades.">
+  <meta property="og:image" content="https://satoshium.games/apps/trust-dynamics/opengraph.jpg">
   <meta property="og:type" content="website">
-
+  <meta property="og:url" content="https://satoshium.games/apps/trust-dynamics/">
+  <meta property="og:site_name" content="Satoshium Games">
+  <meta property="og:locale" content="en_US">
+ 
+  <!-- TIER 3 — SEO: Twitter Card (was missing entirely) -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Trust Dynamics — Satoshium Games">
+  <meta name="twitter:description" content="Multi-agent trust interaction modeling. Observe how trust forms, decays, stabilizes, fractures, repairs, and cascades.">
+  <meta name="twitter:image" content="https://satoshium.games/apps/trust-dynamics/opengraph.jpg">
+  <meta name="twitter:site" content="@SatoshiumAI">
+ 
+  <!-- TIER 3 — SEO: canonical URL -->
+  <link rel="canonical" href="https://satoshium.games/apps/trust-dynamics/">
+ 
+  <!-- TIER 3 — THEME: consistent branding -->
+  <meta name="theme-color" content="#9b6cff">
+ 
   <!-- Google Fonts — monospace + sans pair -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- TIER 3 — PERFORMANCE: dns-prefetch fallback for older browsers -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
+ 
   <link rel="stylesheet" href="./assets/styles.css">
 </head>
 <body>
 <div id="app">
-
+ 
   <!-- ── Header ──────────────────────────────────────────────────────────── -->
   <header id="header">
     <div id="header-title">
@@ -29,9 +50,9 @@
     </div>
     <span id="round-counter">Round 0</span>
   </header>
-
+ 
   <!-- ── Diagnostics Bar ─────────────────────────────────────────────────── -->
-  <div id="diagnostics-bar">
+  <div id="diagnostics-bar" role="status" aria-label="Simulation diagnostics">
     <div class="diag-group">
       <span class="diag-key">Regime</span>
       <span class="diag-label diag-neutral" id="diag-regime">—</span>
@@ -57,9 +78,9 @@
       <span class="diag-label diag-neutral" id="diag-temporal">—</span>
     </div>
   </div>
-
+ 
   <!-- ── Metrics Row ─────────────────────────────────────────────────────── -->
-  <div id="metrics-row">
+  <div id="metrics-row" aria-label="Simulation metrics">
     <div class="metric-card">
       <div class="metric-label">Network Trust</div>
       <div class="metric-value" id="metric-network-trust">—</div>
@@ -83,26 +104,26 @@
       <div class="metric-value" id="metric-cascade">—</div>
     </div>
   </div>
-
+ 
   <!-- ── Main Three-Panel Area ───────────────────────────────────────────── -->
   <div id="main-area">
-
+ 
     <!-- LEFT — Controls -->
     <div class="panel" id="left-panel">
       <div class="panel-title">Controls</div>
       <div class="panel-body">
-
+ 
         <div class="control-section">
-          <div class="control-section-title">Scenario</div>
+          <div class="control-section-title"><label for="scenario-select">Scenario</label></div>
           <select id="scenario-select"></select>
           <div class="scenario-tagline" id="scenario-tagline"></div>
         </div>
-
+ 
         <div class="control-section">
-          <div class="control-section-title">Agents</div>
+          <div class="control-section-title"><label for="agent-count-select">Agents</label></div>
           <select id="agent-count-select"></select>
         </div>
-
+ 
         <div class="control-section">
           <div class="control-section-title">Simulation</div>
           <div class="btn-row">
@@ -111,15 +132,15 @@
           </div>
           <button class="btn btn-full" id="btn-reset">Reset</button>
         </div>
-
+ 
         <div class="control-section">
           <div class="control-section-title">Global Conditions</div>
           <div id="conditions-sliders"></div>
         </div>
-
+ 
       </div>
     </div>
-
+ 
     <!-- CENTER — Trust Map -->
     <div class="panel" id="center-panel">
       <div class="panel-title">Trust Map</div>
@@ -134,20 +155,27 @@
         <div id="agent-summary"></div>
       </div>
     </div>
-
+ 
     <!-- RIGHT — Explanation Console -->
     <div class="panel" id="right-panel">
       <div class="panel-title">Explanation Console</div>
-      <div class="panel-body" id="explanation-console">
+      <div class="panel-body" id="explanation-console" role="log" aria-live="polite">
         <div class="log-line log-header">— Initializing —</div>
         <div class="log-line">Trust Dynamics simulation ready.</div>
         <div class="log-line">Select a scenario and press Step or Run to begin.</div>
       </div>
     </div>
-
+ 
   </div><!-- /#main-area -->
 </div><!-- /#app -->
-
+ 
+<!-- TIER 3 — ACCESSIBILITY: noscript fallback for JS-dependent simulation -->
+<noscript>
+  <p style="color:#e8edf7;background:#07090d;padding:40px;font-family:system-ui,sans-serif;text-align:center;">
+    Trust Dynamics requires JavaScript to run. Please enable JavaScript in your browser settings.
+  </p>
+</noscript>
+ 
 <!-- Logic modules — order matters: dependencies first -->
 <script src="./logic/agents.js"></script>
 <script src="./logic/trust.js"></script>
@@ -156,18 +184,18 @@
 <script src="./logic/diagnostics.js"></script>
 <script src="./logic/simulation.js"></script>
 <script src="./logic/main.js"></script>
-
+ 
 <!-- Update scenario tagline when selection changes -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const select = document.getElementById('scenario-select');
     const tagline = document.getElementById('scenario-tagline');
-
+ 
     function updateTagline() {
       const scenario = SCENARIOS.find(s => s.id === select.value);
       if (tagline && scenario) tagline.textContent = scenario.tagline || '';
     }
-
+ 
     select?.addEventListener('change', updateTagline);
     // Set initial tagline after selectors are populated
     setTimeout(updateTagline, 50);
