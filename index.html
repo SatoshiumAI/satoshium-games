@@ -7,8 +7,36 @@
 <link rel="alternate icon" href="/assets/favicon.ico">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <meta name="theme-color" content="#FF2BD6">
-
+ 
 <title>Satoshium Games</title>
+ 
+<!-- TIER 3 — SEO: meta description -->
+<meta name="description" content="Satoshium Games — the interactive simulation layer of the Satoshium platform. Browser-based environments for exploring trust, coordination, strategy, and signal-aware intelligence through play.">
+ 
+<!-- TIER 3 — SEO: Open Graph -->
+<meta property="og:title" content="Satoshium Games">
+<meta property="og:description" content="The interactive simulation layer of the Satoshium platform — browser-based environments for trust, coordination, strategy, and signal-aware intelligence.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://satoshium.games/">
+<meta property="og:image" content="https://satoshium.ai/assets/og-games.png">
+<meta property="og:site_name" content="Satoshium Games">
+<meta property="og:locale" content="en_US">
+ 
+<!-- TIER 3 — SEO: Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Satoshium Games">
+<meta name="twitter:description" content="Interactive simulation layer — trust, coordination, strategy, and signal-aware intelligence through play.">
+<meta name="twitter:image" content="https://satoshium.ai/assets/og-games.png">
+<meta name="twitter:site" content="@SatoshiumAI">
+ 
+<!-- TIER 3 — SEO: canonical URL -->
+<link rel="canonical" href="https://satoshium.games/">
+ 
+<!-- TIER 3 — PERFORMANCE: preconnect + dns-prefetch for external origins -->
+<link rel="preconnect" href="https://satoshium.link" crossorigin>
+<link rel="dns-prefetch" href="https://satoshium.link">
+<link rel="dns-prefetch" href="https://static.cloudflareinsights.com">
+ 
 <style>
 :root{
   --card-wm: url('https://satoshium.link/assets/seal.png');
@@ -19,13 +47,13 @@
   --gold:#d6a34a;
   --gold2:#f4c36a;
   --line:rgba(214,163,74,.18);
-
+ 
   --cyan:#00eaff;
   --cyan2:#7cf6ff;
   --cyan-line:rgba(0,234,255,.18);
   --cyan-line-strong:rgba(0,234,255,.28);
   --cyan-glow:rgba(0,234,255,.12);
-
+ 
   --war-bg1:#050912;
   --war-bg2:#08111d;
   --war-panel:rgba(7,15,24,.95);
@@ -39,8 +67,18 @@ html,body{
   background:var(--bg);
   color:var(--text);
   font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  line-height:1.55;
+  /* TIER 3 — UX: smooth scroll for in-page anchors */
+  scroll-behavior:smooth;
 }
 body{padding-top:80px}
+ 
+/* TIER 3 — ACCESSIBILITY: visible keyboard focus ring */
+:focus-visible{
+  outline:2px solid var(--gold2);
+  outline-offset:3px;
+}
+ 
 .wrap{max-width:1180px;margin:0 auto;padding:0 18px}
 .wrap.content{
   opacity:0;
@@ -118,7 +156,10 @@ h3{font-size:18px;margin:0 0 10px}
   opacity:.03;
   filter:blur(1px);
   pointer-events:none;
+  z-index:0;
 }
+/* TIER 3 — CSS: z-index lift so card content renders above ::before watermark */
+.card > *{position:relative;z-index:1}
 .card p{color:var(--muted);margin:0 0 12px;line-height:1.65}
 .card .pill{margin-top:8px}
 .hero-note{margin-top:18px;max-width:860px;line-height:1.65}
@@ -145,7 +186,7 @@ li{margin-bottom:8px}
 .button:hover{
   background:rgba(214,163,74,.14);
 }
-
+ 
 /* ===== WarGames Suite row ===== */
 .wargames-row{
   margin-top:22px;
@@ -188,7 +229,7 @@ li{margin-bottom:8px}
   opacity:.14;
   pointer-events:none;
 }
-
+ 
 .wargames-inner{
   position:relative;
   z-index:1;
@@ -197,11 +238,11 @@ li{margin-bottom:8px}
   gap:24px;
   align-items:stretch;
 }
-
+ 
 .wargames-copy{
   padding:2px 0;
 }
-
+ 
 .wargames-kicker{
   display:inline-flex;
   align-items:center;
@@ -217,7 +258,7 @@ li{margin-bottom:8px}
   text-transform:uppercase;
   margin-bottom:14px;
 }
-
+ 
 .wargames-title{
   margin:0 0 10px;
   color:var(--cyan);
@@ -227,7 +268,7 @@ li{margin-bottom:8px}
   text-transform:uppercase;
   text-shadow:0 0 14px rgba(0,234,255,.22);
 }
-
+ 
 .wargames-subtitle{
   margin:0 0 14px;
   color:rgba(0,234,255,.72);
@@ -235,14 +276,14 @@ li{margin-bottom:8px}
   letter-spacing:.18em;
   text-transform:uppercase;
 }
-
+ 
 .wargames-copy p{
   color:#b2c0d4;
   margin:0 0 12px;
   line-height:1.72;
   max-width:720px;
 }
-
+ 
 .wargames-quote{
   margin-top:16px;
   padding:14px 16px;
@@ -252,7 +293,7 @@ li{margin-bottom:8px}
   color:var(--gold2);
   font-style:italic;
 }
-
+ 
 .wargames-side{
   background:linear-gradient(to bottom right, rgba(6,14,22,.96), rgba(8,16,26,.92));
   border:1px solid var(--cyan-line);
@@ -260,7 +301,7 @@ li{margin-bottom:8px}
   padding:18px;
   box-shadow:inset 0 0 0 1px rgba(0,234,255,.03);
 }
-
+ 
 .wargames-side h3{
   color:var(--gold2);
   font-size:13px;
@@ -268,28 +309,28 @@ li{margin-bottom:8px}
   text-transform:uppercase;
   margin:0 0 10px;
 }
-
+ 
 .wargames-side p{
   color:#b8c4d6;
   margin:0 0 12px;
   line-height:1.68;
   font-size:14px;
 }
-
+ 
 .wargames-status-grid{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:10px;
   margin-top:14px;
 }
-
+ 
 .wargames-status{
   border:1px solid rgba(0,234,255,.12);
   border-radius:12px;
   padding:10px 12px;
   background:rgba(0,234,255,.03);
 }
-
+ 
 .wargames-status strong{
   display:block;
   color:var(--cyan2);
@@ -298,19 +339,19 @@ li{margin-bottom:8px}
   text-transform:uppercase;
   margin-bottom:5px;
 }
-
+ 
 .wargames-status span{
   color:#9fb1c8;
   font-size:13px;
 }
-
+ 
 .wargames-actions{
   display:flex;
   flex-wrap:wrap;
   gap:10px;
   margin-top:18px;
 }
-
+ 
 .wargames-button{
   display:inline-flex;
   align-items:center;
@@ -322,33 +363,33 @@ li{margin-bottom:8px}
   font-weight:700;
   letter-spacing:.04em;
 }
-
+ 
 .wargames-button.primary{
   border:1px solid var(--cyan-line-strong);
   background:rgba(0,234,255,.10);
   color:var(--cyan);
 }
-
+ 
 .wargames-button.primary:hover{
   background:rgba(0,234,255,.14);
 }
-
+ 
 .wargames-button.secondary{
   border:1px solid rgba(214,163,74,.22);
   background:rgba(214,163,74,.07);
   color:var(--gold2);
 }
-
+ 
 .wargames-button.secondary:hover{
   background:rgba(214,163,74,.11);
 }
-
+ 
 .section-subnote{
   color:var(--muted);
   margin-top:6px;
   line-height:1.65;
 }
-
+ 
 @media (max-width:980px){
   .modules-grid-3{
     grid-template-columns:1fr;
@@ -357,17 +398,39 @@ li{margin-bottom:8px}
     grid-template-columns:1fr;
   }
 }
-
+ 
 @media (max-width:640px){
   .wargames-title{font-size:28px}
+}
+ 
+/* TIER 3 — ACCESSIBILITY: reduced-motion guard */
+@media (prefers-reduced-motion:reduce){
+  html,body{
+    scroll-behavior:auto;
+  }
+ 
+  .wrap.content{
+    animation:none;
+    opacity:1;
+    transform:none;
+  }
+ 
+  .card{
+    transition:none;
+  }
+ 
+  .card:hover{
+    transform:none;
+  }
 }
 </style>
 </head>
 <body id="top">
 <div id="topbar-slot" data-topbar="universe"></div>
 <script src="https://satoshium.link/components/topbar-loader.js"></script>
-
-<main class="wrap content">
+ 
+<!-- TIER 3 — ACCESSIBILITY: id="main-content" for landmark targeting -->
+<main id="main-content" class="wrap content">
   <div class="pill">Satoshium Games</div>
   <h1>Satoshium Games</h1>
   <p class="muted hero-note">
@@ -376,11 +439,11 @@ li{margin-bottom:8px}
   <p>
     These modules are designed to make complex ideas visible. Instead of hiding reasoning behind opaque systems, Satoshium Games explores how explainable agents, structured signals, and Bitcoin-aligned logic can be experienced through play, experimentation, and simulation.
   </p>
-
+ 
   <div class="games-intro-grid">
-
-    <div class="card">
-      <h2>Why Satoshium Games Exists</h2>
+ 
+    <div class="card" aria-labelledby="heading-why">
+      <h2 id="heading-why">Why Satoshium Games Exists</h2>
       <p>
         Satoshium Games turns architectural ideas into interactive environments. It exists to help people see how intelligence, trust, and coordination behave when placed inside structured systems.
       </p>
@@ -388,9 +451,9 @@ li{margin-bottom:8px}
         These are not just games for entertainment. They are living demonstrations of explainable AI, signal-driven interaction, and long-horizon platform design.
       </p>
     </div>
-
-    <div class="card">
-      <h2>What You Can Explore Here</h2>
+ 
+    <div class="card" aria-labelledby="heading-explore">
+      <h2 id="heading-explore">What You Can Explore Here</h2>
       <ul>
         <li>Explainable strategy environments</li>
         <li>Signal-based learning systems</li>
@@ -398,19 +461,19 @@ li{margin-bottom:8px}
         <li>Future coordination and governance simulations</li>
       </ul>
     </div>
-
+ 
   </div>
-
-  <section class="section-card" style="--card-wm:url('https://satoshium.link/assets/seal.png');">
-    <h2>Available Modules</h2>
+ 
+  <section class="section-card" style="--card-wm:url('https://satoshium.link/assets/seal.png');" aria-labelledby="heading-modules">
+    <h2 id="heading-modules">Available Modules</h2>
     <p class="section-subnote">
       Explore the live simulation environments currently available inside Satoshium Games, followed by the developing WarGames Suite.
     </p>
-
+ 
     <div class="modules-grid-3">
-
-      <div class="card" style="--card-wm:url('https://satoshium.link/assets/seal.png');">
-        <h2>Chess Signal <span class="pill" style="margin-bottom:8px;">Live Module</span></h2>
+ 
+      <div class="card" style="--card-wm:url('https://satoshium.link/assets/seal.png');" aria-labelledby="heading-chess">
+        <h2 id="heading-chess">Chess Signal <span class="pill" style="margin-bottom:8px;">Live Module</span></h2>
         <p>
           Chess Signal is a browser-based learning environment that surfaces positional, tactical, and developmental signals during play.
         </p>
@@ -419,9 +482,9 @@ li{margin-bottom:8px}
         </p>
         <a href="./apps/chess-signal/" class="pill">Open Chess Signal →</a>
       </div>
-
-      <div class="card" style="--card-wm:url('https://satoshium.link/assets/seal.png');">
-        <h2>Signal Coordination <span class="pill" style="margin-bottom:8px;">Live Module</span></h2>
+ 
+      <div class="card" style="--card-wm:url('https://satoshium.link/assets/seal.png');" aria-labelledby="heading-signal">
+        <h2 id="heading-signal">Signal Coordination <span class="pill" style="margin-bottom:8px;">Live Module</span></h2>
         <p>
           Signal Coordination is a browser-based multi-agent alignment simulator in Satoshium Games that reveals how shared signals shape cooperation, competition, and coalition structure over time.
         </p>
@@ -430,9 +493,9 @@ li{margin-bottom:8px}
         </p>
         <a href="./apps/signal-coordination/" class="pill">Open Signal Coordination →</a>
       </div>
-
-      <div class="card" style="--card-wm:url('https://satoshium.link/assets/seal.png');">
-        <h2>Trust Dynamics <span class="pill" style="margin-bottom:8px;">Live Module</span></h2>
+ 
+      <div class="card" style="--card-wm:url('https://satoshium.link/assets/seal.png');" aria-labelledby="heading-trust">
+        <h2 id="heading-trust">Trust Dynamics <span class="pill" style="margin-bottom:8px;">Live Module</span></h2>
         <p>
           Trust Dynamics is a browser-based multi-agent trust simulator in Satoshium that reveals how shared confidence, fragility, and dependence shift across a network over time.
         </p>
@@ -441,15 +504,15 @@ li{margin-bottom:8px}
         </p>
         <a href="./apps/trust-dynamics/" class="pill">Open Trust Dynamics →</a>
       </div>
-
+ 
     </div>
-
-    <div class="wargames-row">
+ 
+    <div class="wargames-row" aria-labelledby="heading-wargames">
       <div class="wargames-inner">
-
+ 
         <div class="wargames-copy">
           <div class="wargames-kicker">Satoshium WarGames Suite</div>
-          <h2 class="wargames-title">Observe strategic systems before they harden</h2>
+          <h2 id="heading-wargames" class="wargames-title">Observe strategic systems before they harden</h2>
           <div class="wargames-subtitle">A different simulation line inside Satoshium Games</div>
           <p>
             The Satoshium WarGames Suite is a structured learning environment built to explore solved equilibrium, escalation, instability, coalition dynamics, and open strategic coordination.
@@ -458,12 +521,11 @@ li{margin-bottom:8px}
             It carries a stronger strategic-simulation atmosphere than the rest of Satoshium Games — still unmistakably Satoshium in color and discipline, but with a more focused command-console feel that invites the question: what kind of system am I looking at?
           </p>
           <div class="wargames-quote">
-            “What begins as a lesson in inevitable equilibrium expands into a broader study of escalation, restraint, and strategic coordination.”
+            "What begins as a lesson in inevitable equilibrium expands into a broader study of escalation, restraint, and strategic coordination."
           </div>
-
+ 
           <div class="wargames-actions">
             <a href="./apps/wargames-suite/" class="wargames-button primary">Open WarGames Suite →</a>
-            <p></p>
             <a href="https://satoshium.games/apps/wargames-suite/tic-tac-toe-signal/" class="wargames-button secondary">Launch Module 01 →</a>
             <a href="https://satoshium.games/apps/wargames-suite/escalation-ladder/" class="wargames-button secondary">Launch Module 02 →</a>
             <a href="https://satoshium.games/apps/wargames-suite/global-stability/" class="wargames-button secondary">Launch Module 03 →</a>
@@ -471,7 +533,7 @@ li{margin-bottom:8px}
             <a href="https://satoshium.games/apps/wargames-suite/strategic-signal-lab/" class="wargames-button secondary">Launch Module 05 →</a>
           </div>
         </div>
-
+ 
         <aside class="wargames-side">
           <h3>Suite Status</h3>
           <p>
@@ -496,47 +558,48 @@ li{margin-bottom:8px}
             </div>
           </div>
         </aside>
-
+ 
       </div>
     </div>
-
+ 
   </section>
-
-  <section>
+ 
+  <section aria-labelledby="heading-future-section">
+    <h2 id="heading-future-section" class="sr-only">Future Directions</h2>
     <div class="grid">
-
-      <div class="card" style="--card-wm:url('https://satoshium.link/assets/seal.png');">
-        <h2>Explainable Simulations</h2>
+ 
+      <div class="card" style="--card-wm:url('https://satoshium.link/assets/seal.png');" aria-labelledby="heading-explain">
+        <h2 id="heading-explain">Explainable Simulations</h2>
         <p>
           Future modules will explore how signal-aware systems can teach, guide, and adapt inside interactive environments.
         </p>
       </div>
-
-      <div class="card" style="--card-wm:url('https://satoshium.link/assets/seal.png');">
-        <h2>Trust &amp; Coordination</h2>
+ 
+      <div class="card" style="--card-wm:url('https://satoshium.link/assets/seal.png');" aria-labelledby="heading-trustcoord">
+        <h2 id="heading-trustcoord">Trust &amp; Coordination</h2>
         <p>
           Games in this repository will help demonstrate how trust signals, coordination logic, and structured incentives can shape intelligent behavior.
         </p>
       </div>
-
-      <div class="card" style="--card-wm:url('https://satoshium.link/assets/seal.png');">
-        <h2>Future Satoshium Modules</h2>
+ 
+      <div class="card" style="--card-wm:url('https://satoshium.link/assets/seal.png');" aria-labelledby="heading-futuremod">
+        <h2 id="heading-futuremod">Future Satoshium Modules</h2>
         <p>
           Over time, Satoshium Games may include additional strategy, simulation, and multi-agent interaction environments connected to the broader platform architecture.
         </p>
       </div>
-
-      <div class="card" style="--card-wm:url('https://satoshium.link/assets/seal.png');">
-        <h2>Platform Role</h2>
+ 
+      <div class="card" style="--card-wm:url('https://satoshium.link/assets/seal.png');" aria-labelledby="heading-role">
+        <h2 id="heading-role">Platform Role</h2>
         <p>
           Satoshium Games complements the rest of the Satoshium Universe by serving as the interactive simulation layer — helping users move from theory into direct experience.
         </p>
       </div>
-
+ 
     </div>
   </section>
 </main>
-
+ 
 <div class="wrap reflection">
   <hr>
   <div id="random-saying" class="muted" style="margin-bottom:14px; max-width:760px;">
@@ -545,7 +608,7 @@ li{margin-bottom:8px}
   <hr>
   <div id="footer-container"></div>
 </div>
-
+ 
 <script src="https://satoshium.link/assets/sayings.js"></script>
 <script>
 fetch("https://satoshium.link/components/footer.html")
@@ -555,5 +618,8 @@ fetch("https://satoshium.link/components/footer.html")
   });
 </script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1183478d1adc4f7ab3d63ff8cfaf459b"}'></script><!-- End Cloudflare Web Analytics -->
+ 
+<!-- TIER 3 — ACCESSIBILITY: screen-reader-only utility (for hidden section heading) -->
+<style>.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}</style>
 </body>
 </html>
