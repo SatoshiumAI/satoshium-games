@@ -14,7 +14,7 @@ Satoshium Games is released under the MIT License unless otherwise specified.
 
 The MIT License is a permissive open-source license that allows individuals and organizations to use, copy, modify, merge, publish, distribute, sublicense, and sell copies of software and documentation, subject to the conditions contained within the license.
 
-The official legal license governing this repository is contained in the repository's `LICENSE` file.
+The official legal license governing this repository is contained in the repository's `LICENSE.txt` file.
 
 This document exists to provide additional context regarding licensing philosophy and intended usage.
 
